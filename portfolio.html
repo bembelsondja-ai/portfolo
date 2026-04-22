@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peguy.Digital | Premium Web Design & Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0f1a;
+            --accent-blue: #60a5fa;
+            --accent-blue-dark: #3b82f6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(10, 15, 26, 0.8);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        body {
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* UTILITIES */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-pad { padding: 8rem 0; }
+        .text-center { text-align: center; }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(96, 165, 250, 0.1);
+            color: var(--accent-blue);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--accent-blue);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(96, 165, 250, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: var(--card-bg);
+            border-color: #fff;
+        }
+
+        /* REVEAL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent-blue); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        .lang-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: #fff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 12rem 0 8rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.15) 0%, transparent 50%);
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            padding: 4rem 0;
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(255,255,255,0.01);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* PROJECTS */
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag-pill {
+            padding: 0.3rem 0.75rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .project-body h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            height: 4.5rem;
+            overflow: hidden;
+        }
+
+        .project-btn {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-btn:hover { color: #fff; }
+
+        /* SKILLS */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-item {
+            padding: 0.8rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            transition: var(--transition);
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        /* TESTIMONIALS */
+        .t-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .t-card {
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            text-align: left;
+        }
+
+        .t-quote {
+            font-size: 1.1rem;
+            color: #fff;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .t-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .t-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .t-name { font-weight: 700; color: #fff; }
+        .t-loc { font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* PRICING */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            padding: 3rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-blue);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.05), transparent);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-blue);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .p-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .p-cost { font-size: 3rem; font-weight: 800; color: #fff; margin-bottom: 2rem; }
+        .p-cost span { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+
+        .p-features {
+            text-align: left;
+            list-style: none;
+            margin-bottom: 3rem;
+        }
+
+        .p-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .p-features li::before {
+            content: '✓';
+            color: var(--accent-blue);
+            font-weight: 900;
+        }
+
+        /* CONTACT */
+        .contact-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 4rem;
+            border-radius: 32px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
+
+        input, select, textarea {
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(255,255,255,1);
+            color: #000;
+        }
+
+        textarea { resize: vertical; min-height: 120px; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.25rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .contact-footer {
+            margin-top: 3rem;
+            color: var(--text-secondary);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.75rem; }
+            .hero p { font-size: 1.1rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .t-grid, .pricing-grid, .form-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; margin: 1rem 0; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .contact-wrap { padding: 2rem; }
+            .nav-links { display: none; }
+        }
+
+        /* PROJECT PLACEHOLDERS */
+        .project-dental { background: linear-gradient(135deg, #f0f9ff, #e0f2fe); }
+        .project-fitness { background: linear-gradient(135deg, #1a1a1a, #000000); }
+        .project-realty { background: linear-gradient(135deg, #111827, #030712); }
+        .project-restaurant { background: linear-gradient(135deg, #fdfcfb, #e2d1c3); }
+        .project-saas { background: linear-gradient(135deg, #0f172a, #1e293b); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-wrap">
+            <a href="#" class="logo">Peguy<span>.</span>Digital</a>
+            <div class="nav-links">
+                <a href="#projekts" data-en="Work" data-fr="Réalisations">Work</a>
+                <a href="#skills" data-en="Services" data-fr="Services">Services</a>
+                <a href="#contact" data-en="Contact" data-fr="Contact">Contact</a>
+                <button class="lang-toggle" onclick="toggleLanguage()">Français</button>
+            </div>
+            <a href="#contact" class="btn-primary" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;" data-en="Hire Me" data-fr="M'engager">Hire Me</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="reveal">
+                <span class="badge">✦ <span data-en="Available for new projects" data-fr="Disponible pour nouveaux projets">Available for new projects</span></span>
+            </div>
+            <h1 class="reveal" data-en="Premium Websites That Convert Visitors Into Clients." data-fr="Des sites premium qui transforment vos visiteurs en clients.">Premium Websites That Convert Visitors Into Clients.</h1>
+            <p class="reveal" data-en="I'm Peguy, a web designer specializing in high-end websites for businesses worldwide. I build sites that look expensive, load fast, and turn visitors into paying customers." data-fr="Je suis Peguy, web designer spécialisé dans les sites haut de gamme. Je conçois des interfaces luxueuses, ultra-rapides, pensées pour maximiser votre conversion.">I'm Peguy, a web designer specializing in high-end websites for businesses worldwide. I build sites that look expensive, load fast, and turn visitors into paying customers.</p>
+            <div class="hero-actions reveal">
+                <a href="#projekts" class="btn-primary" data-en="View My Work →" data-fr="Voir mes travaux →">View My Work →</a>
+                <a href="#contact" class="btn-secondary" data-en="Get a Free Quote →" data-fr="Devis Gratuit →">Get a Free Quote →</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid reveal">
+                <div class="stat-item">
+                    <span class="stat-val">5</span>
+                    <span class="stat-label" data-en="Projects Delivered" data-fr="Projets Livrés">Projects Delivered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">3</span>
+                    <span class="stat-label" data-en="Industries Served" data-fr="Secteurs d'activité">Industries Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">100%</span>
+                    <span class="stat-label" data-en="Client Satisfaction" data-fr="Clients Satisfaits">Client Satisfaction</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">48h</span>
+                    <span class="stat-label" data-en="Avg. Delivery" data-fr="Livraison Moyenne">Avg. Delivery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projekts" class="section-pad">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <span class="badge" data-en="Portfolio" data-fr="Portfolio">Portfolio</span>
+                <h2 data-en="Featured Work" data-fr="Travaux Récents">Featured Work</h2>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: Dental -->
+                <article class="project-card reveal">
+                    <div class="project-img project-dental" style="background-image: url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&auto=format&fit=crop');">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="tag-pill" data-en="Healthcare" data-fr="Santé">Healthcare</span>
+                            <span class="tag-pill">UI/UX</span>
+                            <span class="tag-pill">Premium</span>
+                        </div>
+                        <h3>Dr. Sarah Mitchell</h3>
+                        <p data-en="Premium dental clinic website for Austin TX practice. Apple-inspired clean design with online booking, patient testimonials, and insurance info." data-fr="Site vitrine premium pour un cabinet dentaire à Austin. Design épuré style Apple avec prise de rendez-vous en ligne.">Premium dental clinic website for Austin TX practice. Apple-inspired clean design with online booking, patient testimonials, and insurance info.</p>
+                        <a href="https://cabinetdentair.netlify.app/" target="_blank" class="project-btn" data-en="Live Preview →" data-fr="Voir en direct →">Live Preview →</a>
+                    </div>
+                </article>
+
+                <!-- Project 2: Fitness -->
+                <article class="project-card reveal">
+                    <div class="project-img project-fitness" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop');">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="tag-pill" data-en="Personal Brand" data-fr="Marque Perso">Personal Brand</span>
+                            <span class="tag-pill">Fitness</span>
+                            <span class="tag-pill">Nike-style</span>
+                        </div>
+                        <h3>Jake Reynolds</h3>
+                        <p data-en="High-energy coaching website for LA-based personal trainer. Bold Nike-inspired design with VSL, pricing plans, and Instagram feed." data-fr="Site dynamique pour un coach sportif à Los Angeles. Design audacieux style Nike avec intégration vidéo et FAQ.">High-energy coaching website for LA-based personal trainer. Bold Nike-inspired design with VSL, pricing plans, and Instagram feed.</p>
+                        <a href="https://fitnesscoac.netlify.app/" target="_blank" class="project-btn" data-en="Live Preview →" data-fr="Voir en direct →">Live Preview →</a>
+                    </div>
+                </article>
+
+                <!-- Project 3: Real Estate -->
+                <article class="project-card reveal">
+                    <div class="project-img project-realty" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop');">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="tag-pill" data-en="Real Estate" data-fr="Immobilier">Real Estate</span>
+                            <span class="tag-pill">Luxury</span>
+                            <span class="tag-pill">Gold</span>
+                        </div>
+                        <h3>Horizon Realty Group</h3>
+                        <p data-en="Luxury real estate agency site for Miami market. Sotheby's-level design with property listings, team profiles and neighborhood guide." data-fr="Agence immobilière de luxe à Miami. Design de prestige avec catalogue de propriétés et guides de quartiers.">Luxury real estate agency site for Miami market. Sotheby's-level design with property listings, team profiles and neighborhood guide.</p>
+                        <a href="https://imobiliarea.netlify.app/" target="_blank" class="project-btn" data-en="Live Preview →" data-fr="Voir en direct →">Live Preview →</a>
+                    </div>
+                </article>
+
+                <!-- Project 4: Restaurant -->
+                <article class="project-card reveal">
+                    <div class="project-img project-restaurant" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop');">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="tag-pill">Restaurant</span>
+                            <span class="tag-pill" data-en="Food" data-fr="Gastronomie">Food</span>
+                            <span class="tag-pill">Editorial</span>
+                        </div>
+                        <h3>Bella Napoli NYC</h3>
+                        <p data-en="Fine dining website for authentic Italian restaurant in NYC. Michelin-inspired design with full menu, gallery and reservation system." data-fr="Site gastronomique pour un restaurant italien authentique à NYC. Design type Michelin avec menu complet et réservations.">Fine dining website for authentic Italian restaurant in NYC. Michelin-inspired design with full menu, gallery and reservation system.</p>
+                        <a href="https://restaurant-fo.netlify.app/" target="_blank" class="project-btn" data-en="Live Preview →" data-fr="Voir en direct →">Live Preview →</a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-img project-saas" style="background-image: linear-gradient(135deg, #1A1A2E 0%, #6C63FF 100%); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -1px; text-shadow: 0 10px 20px rgba(0,0,0,0.2);">FlowDesk</span>
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="tag-pill">SaaS</span>
+                            <span class="tag-pill">Startup</span>
+                            <span class="tag-pill" data-en="Conversion" data-fr="Conversion">Conversion</span>
+                        </div>
+                        <h3>FlowDesk OS</h3>
+                        <p data-en="Modern SaaS landing page for project management tool. Linear.app-inspired design with dashboard mockup, pricing toggle and ROI calculator." data-fr="Landing page SaaS moderne pour un outil de gestion. Design inspiré de Linear avec tableau de bord et calculateur ROI.">Modern SaaS landing page for project management tool. Linear.app-inspired design with dashboard mockup, pricing toggle and ROI calculator.</p>
+                        <a href="https://flowdes.netlify.app/" target="_blank" class="project-btn" data-en="Live Preview →" data-fr="Voir en direct →">Live Preview →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-pad" style="background: rgba(255,255,255,0.01);">
+        <div class="container text-center">
+            <div class="section-header reveal">
+                <span class="badge" data-en="Expertise" data-fr="Expertise">Expertise</span>
+                <h2 data-en="What I Bring to the Table" data-fr="Mes Compétences">What I Bring to the Table</h2>
+            </div>
+            <div class="skills-grid reveal">
+                <div class="skill-item">Web Design</div>
+                <div class="skill-item">HTML/CSS/JS</div>
+                <div class="skill-item">UI/UX Design</div>
+                <div class="skill-item">Responsive Design</div>
+                <div class="skill-item">Landing Pages</div>
+                <div class="skill-item">SaaS Design</div>
+                <div class="skill-item">Restaurant Websites</div>
+                <div class="skill-item">Real Estate Sites</div>
+                <div class="skill-item">Figma to Code</div>
+                <div class="skill-item">Fast Delivery 48-72h</div>
+                <div class="skill-item">Mobile-First</div>
+                <div class="skill-item">SEO Ready</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section-pad">
+        <div class="container text-center">
+            <div class="section-header reveal">
+                <span class="badge" data-en="Testimonials" data-fr="Témoignages">Testimonials</span>
+                <h2 data-en="What Clients Say" data-fr="Ce que disent les clients">What Clients Say</h2>
+            </div>
+            <div class="t-grid">
+                <div class="t-card reveal">
+                    <p class="t-quote" data-en="&ldquo;Peguy delivered our Horizon Realty site in under 72 hours. The quality was indistinguishable from a $5,000 agency job.&rdquo;" data-fr="&ldquo;Peguy a livré notre site Horizon Realty en moins de 72h. La qualité est identique à celle d'une agence à 5000$.&rdquo;">"Peguy delivered our Horizon Realty site in under 72 hours. The quality was indistinguishable from a $5,000 agency job."</p>
+                    <div class="t-user">
+                        <div class="t-avatar" style="background: #3b82f6; color: #fff;">MW</div>
+                        <div>
+                            <div class="t-name">Marcus Webb</div>
+                            <div class="t-loc">Miami, FL</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-card reveal">
+                    <p class="t-quote" data-en="&ldquo;Incredible attention to detail. Our restaurant site got 3 reservation requests on the very first day. Peguy understood our brand instantly.&rdquo;" data-fr="&ldquo;Attention aux détails incroyable. Notre site a généré 3 réservations dès le premier jour. Peguy a compris notre marque instantanément.&rdquo;">"Incredible attention to detail. Our restaurant site got 3 reservation requests on the very first day. Peguy understood our brand instantly."</p>
+                    <div class="t-user">
+                        <div class="t-avatar" style="background: #a855f7; color: #fff;">SK</div>
+                        <div>
+                            <div class="t-name">Sarah K.</div>
+                            <div class="t-loc">London, UK</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-card reveal">
+                    <p class="t-quote" data-en="&ldquo;Best freelancer I've found on Reddit. Clean code, fast delivery, zero back-and-forth needed. Exactly what a busy founder needs.&rdquo;" data-fr="&ldquo;Le meilleur freelance trouvé sur Reddit. Code propre, livraison rapide, aucun aller-retour inutile. Exactement ce qu'un fondateur recherche.&rdquo;">"Best freelancer I've found on Reddit. Clean code, fast delivery, zero back-and-forth needed. Exactly what a busy founder needs."</p>
+                    <div class="t-user">
+                        <div class="t-avatar" style="background: #22c55e; color: #fff;">JT</div>
+                        <div>
+                            <div class="t-name">Jason T.</div>
+                            <div class="t-loc">San Francisco, CA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="section-pad">
+        <div class="container text-center">
+            <div class="section-header reveal">
+                <span class="badge" data-en="Contact" data-fr="Contact">Contact</span>
+                <h2 data-en="Let's Build Something Together" data-fr="Construisons votre projet">Let's Build Something Together</h2>
+                <p data-en="Tell me about your project and I'll get back to you within 24 hours." data-fr="Décrivez-moi votre projet et je vous répondrai sous 24 heures.">Tell me about your project and I'll get back to you within 24 hours.</p>
+            </div>
+            <div class="contact-wrap reveal">
+                <form action="https://formspree.io/f/mvzdbngn" method="POST">
+                    <input type="hidden" name="_subject" value="New client from portfolio!">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label data-en="Full Name" data-fr="Nom Complet">Full Name</label>
+                            <input type="text" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Email Address" data-fr="Adresse Email">Email Address</label>
+                            <input type="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Project Type" data-fr="Type de Projet">Project Type</label>
+                            <select name="project_type">
+                                <option value="landing">Landing Page</option>
+                                <option value="business">Business Website</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="realty">Real Estate</option>
+                                <option value="saas">SaaS</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Budget Range" data-fr="Fourchette de Budget">Budget Range</label>
+                            <select name="budget">
+                                <option value="100-200">$100 - $200</option>
+                                <option value="200-350">$200 - $350</option>
+                                <option value="350+">$350+</option>
+                                <option value="unsure" data-en="Not sure" data-fr="Pas encore sûr">Not sure</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Message" data-fr="Votre Message">Message</label>
+                        <textarea name="message" data-en="Tell me about your project..." data-fr="Décrivez-moi votre projet..." placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-submit" data-en="Send Message →" data-fr="Envoyer le message →">Send Message →</button>
+                </form>
+                <div class="contact-footer">
+                    <p data-en="Prefer to reach out directly?" data-fr="Vous préférez discuter directement ?">Prefer to reach out directly?</p>
+                    <a href="https://www.reddit.com/user/Overall-Attitude1393" target="_blank" class="btn-secondary" style="margin-top: 1rem; border-color: #ff4500; color: #ff4500;">Reddit Me →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Peguy.Digital &mdash; <span data-en="Premium Web Design for Global Businesses" data-fr="Web Design Premium pour Entreprises Internationales">Premium Web Design for Global Businesses</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // LANGUAGE TOGGLE LOGIC
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            const btn = document.querySelector('.lang-toggle');
+            btn.textContent = currentLang === 'en' ? 'Français' : 'English';
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${currentLang}`);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = text;
+                } else {
+                    el.textContent = text;
+                }
+            });
+        }
+
+        // REVEAL ANIMATION
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // SMOOTH SCROLL (Additional fix for browser consistency)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
